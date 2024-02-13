@@ -1,0 +1,49 @@
+#codelab-title {
+  background-color: #6737e1 !important;
+  color: white !important;
+}
+
+.google-codelab-step {
+  background-color: #313131 !important;
+}
+
+google-codelab google-codelab-step[animating],
+google-codelab google-codelab-step[selected] {
+  background-color: #313131 !important;
+}
+
+.steps {
+  background-color: #313131 !important;
+}
+.metadata {
+  background-color: #313131 !important;
+}
+
+#next-step {
+  background-color: #6737e1 !important;
+}
+
+#previous-step {
+  color: #6737e1 !important;
+}
+
+google-codelab #drawer ol li[completed] .step:before {
+  background-color: #6737e1 !important;
+}
+
+.material-icons {
+  color: #fff !important;
+}
+
+.inner {
+  background-color: #e2e2e2 !important;
+}
+
+li a {
+  background-color: #e2e2e2 !important;
+}
+
+.codelab-time-container {
+  background-color: #6737e1 !important;
+  color: white !important;
+}

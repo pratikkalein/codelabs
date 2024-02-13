@@ -1,5 +1,5 @@
 body {
-  background-color: #f8f9fa;
+  background-color: #313131;
   font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
@@ -9,11 +9,19 @@ body {
 
 .container {
   width: 1024px;
-  background-color: #f0f0f0;
-  /* Slightly off-white background */
   margin-top: 20px;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  min-height: 90vh;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#icon {
+  font-size: 45px;
 }
 
 a {
@@ -25,16 +33,31 @@ h1,
 h3 {
   color: #333;
   text-align: center;
+  color: #f7f7f7;
 }
 
+.underline-primary {
+  text-decoration: underline;
+  text-decoration-color: #6337e1;
+  text-decoration-thickness: 4px;
+}
+
+.text-primary {
+  color: #6337e1;
+}
+
+.text-white {
+  color: #f7f7f7;
+}
 .card {
   display: flex;
   align-items: center;
-  background-color: #f7f7f7;
+  background-color: #e2e2e2;
   /* Slightly off-white for the card */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(75, 75, 75, 0.1);
   margin: 20px 0;
-  padding: 20px;
+  padding: 25px;
+  border-radius: 15px;
 }
 
 .card img {
@@ -52,11 +75,38 @@ h3 {
 
 .card-title {
   margin: 0;
-  color: #333;
 }
 
 .card-description {
   margin-top: 5px;
   font-size: 14px;
-  color: #666;
+  text-align: justify;
+  margin-bottom: 0;
+}
+
+.properties {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1024px;
+}
+
+footer {
+  width: 100%; /* Make footer full width */
+  padding: 20px 0; /* Add some padding */
+  text-align: center; /* Center the footer content */
 }

@@ -1,100 +1,108 @@
-
 <!doctype html>
 
 <html>
+
 <head>
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>Example of a Python application built with Gemini Pro Vision</title>
-  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <title>A Python application example developed with Gemini Pro Vision</title>
+  <link rel="stylesheet"
+    href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <link rel="stylesheet" href="../custom-styles.css">
   <style>
     .success {
       color: #1e8e3e;
     }
+
     .error {
       color: red;
     }
   </style>
 </head>
+
 <body>
   <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
-  <google-codelab codelab-gaid=""
-                  id="gemini-pro-vision-recipe"
-                  title="Example of a Python application built with Gemini Pro Vision"
-                  environment="web"
-                  feedback-link="">
-    
-      <google-codelab-step label="Overview" duration="1">
-        <p>Hey there!</p>
-<p>In this codelab, you&#39;ll build a fun and practical Streamlit app that generates recipes based on food images! By leveraging the power of Google&#39;s Gemini Pro Vision model, you&#39;ll be able to:</p>
-<ul>
-<li>Upload a picture of any food item.</li>
-<li>Automatically identify the type of food in the image.</li>
-<li>Receive a delicious and potentially unique recipe tailored to the identified food.</li>
-</ul>
+  <google-codelab codelab-gaid="G-JGX8R7DNCD" id="gemini-pro-vision-recipe"
+    title="A Python application example developed with Gemini Pro Vision" environment="web" feedback-link="">
+
+    <google-codelab-step label="Overview" duration="1">
+      <p>Hey there!</p>
+      <p>In this codelab, you&#39;ll build a fun and practical Streamlit app that generates recipes based on food
+        images! By leveraging the power of Google&#39;s Gemini Pro Vision model, you&#39;ll be able to:</p>
+      <ul>
+        <li>Upload a picture of any food item.</li>
+        <li>Automatically identify the type of food in the image.</li>
+        <li>Receive a delicious and potentially unique recipe tailored to the identified food.</li>
+      </ul>
+      <p class="image-container"><img alt="app" src="img/86d4849c18b7da92.png"></p>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Requirements" duration="2">
-        <p>In order to follow this codelab, you&#39;ll need the following:</p>
-<ol type="1">
-<li>A development environment with Python 3.7 or above installed.</li>
-<li>Access to terminal/shell for executing commands.</li>
-<li>Basic understanding of Python</li>
-<li>Familiarity with REST APIs is helpful but not mandatory</li>
-<li>Access to a Gemini Pro Vision model</li>
-</ol>
+    </google-codelab-step>
+
+    <google-codelab-step label="Requirements" duration="2">
+      <p>In order to follow this codelab, you&#39;ll need the following:</p>
+      <ol type="1">
+        <li>A development environment with Python 3.7 or above installed.</li>
+        <li>Access to terminal/shell for executing commands.</li>
+        <li>Basic understanding of Python</li>
+        <li>Familiarity with REST APIs is helpful but not mandatory</li>
+        <li>Access to a Gemini Pro Vision model</li>
+      </ol>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Setting Up Your Dev Environment" duration="10">
-        <ol type="1">
-<li>Log in to your <a href="https://makersuite.google.com/" target="_blank">Google AI Studio</a> account.</li>
-<li>Create a new <code>API KEY</code>.</li>
-<li>Note the API Key in a secure location.</li>
-</ol>
+    </google-codelab-step>
+
+    <google-codelab-step label="Setting Up Your Dev Environment" duration="10">
+      <ol type="1">
+        <li>Log in to your <a href="https://makersuite.google.com/" target="_blank">Google AI Studio</a> account.</li>
+        <li>Create a new <code>API KEY</code>.</li>
+        <li>Note the API Key in a secure location.</li>
+      </ol>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Setting Up Your Local Environment" duration="5">
-        <ol type="1">
-<li>Create a new folder for the project and open it in the choice of your IDE.</li>
-<li>Create a new virtual python environment.<pre><code language="language-bash" class="language-bash">python3 -m venv venv
+    </google-codelab-step>
+
+    <google-codelab-step label="Setting Up Your Local Environment" duration="5">
+      <ol type="1">
+        <li>Create a new folder for the project and open it in the choice of your IDE.</li>
+        <li>Create a new virtual python environment.
+          <pre><code language="language-bash" class="language-bash">python3 -m venv venv
 </code></pre>
-</li>
-<li>Activate the environment.<pre><code language="language-bash" class="language-bash">source venv/bin/activate
+        </li>
+        <li>Activate the environment.
+          <pre><code language="language-bash" class="language-bash">source venv/bin/activate
 </code></pre>
-</li>
-<li>Install the Google Gen AI library:<pre><code language="language-bash" class="language-bash">pip install streamlit google-generativeai
+        </li>
+        <li>Install the Google Gen AI library:
+          <pre><code language="language-bash" class="language-bash">pip install streamlit google-generativeai
 </code></pre>
-</li>
-</ol>
+        </li>
+      </ol>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Configure The Model" duration="10">
-        <ol type="1">
-<li><strong>Importing Libraries</strong>: We start by importing necessary Python libraries. Streamlit for our web framework, Gen AI for AI model interaction, and others for various functionalities.</li>
-</ol>
-<pre><code language="language-python" class="language-python">import streamlit as st
+    </google-codelab-step>
+
+    <google-codelab-step label="Configure The Model" duration="10">
+      <ol type="1">
+        <li><strong>Importing Libraries</strong>: We start by importing necessary Python libraries. Streamlit for our
+          web framework, Gen AI for AI model interaction, and others for various functionalities.</li>
+      </ol>
+      <pre><code language="language-python" class="language-python">import streamlit as st
 from PIL import Image
 import textwrap
 import google.generativeai as genai
 import io
 import os
 </code></pre>
-<ol type="1" start="2">
-<li><strong>Initializing the App and Gemini API</strong>: We initialize our Flask app and load the Gemini API client. Create a new function <code>configure_google_api</code></li>
-</ol>
-<p>Replace <code>yourapikey</code> with your actual API key.</p>
-<pre><code language="language-python" class="language-python">def configure_google_api():
+      <ol type="1" start="2">
+        <li><strong>Initializing the App and Gemini API</strong>: We initialize our Flask app and load the Gemini API
+          client. Create a new function <code>configure_google_api</code></li>
+      </ol>
+      <p>Replace <code>yourapikey</code> with your actual API key.</p>
+      <pre><code language="language-python" class="language-python">def configure_google_api():
     genai.configure(api_key=&#34;yourapikey&#34;)  # Replace with your actual API key
 
     generation_config = {
@@ -104,8 +112,8 @@ import os
         &#34;max_output_tokens&#34;: 1024,
     }
 </code></pre>
-<p>We also need to configure the security settings for the model output:</p>
-<pre><code language="language-python" class="language-python">safety_settings = [
+      <p>We also need to configure the security settings for the model output:</p>
+      <pre><code language="language-python" class="language-python">safety_settings = [
         {&#34;category&#34;: &#34;HARM_CATEGORY_HARASSMENT&#34;, &#34;threshold&#34;: &#34;BLOCK_MEDIUM_AND_ABOVE&#34;},
         {&#34;category&#34;: &#34;HARM_CATEGORY_HATE_SPEECH&#34;, &#34;threshold&#34;: &#34;BLOCK_MEDIUM_AND_ABOVE&#34;},
         {&#34;category&#34;: &#34;HARM_CATEGORY_SEXUALLY_EXPLICIT&#34;, &#34;threshold&#34;: &#34;BLOCK_MEDIUM_AND_ABOVE&#34;},
@@ -117,14 +125,16 @@ model = genai.GenerativeModel(model_name=&#34;gemini-pro-vision&#34;,
     return model
 
 </code></pre>
-<p>This code configures the text generation model (&#34;gemini-pro-vision&#34;) with safety checks. It first sets up the API key and adjusts settings for creative control and output length. It then defines safety thresholds for harmful content. Finally, it creates the model and returns it for use.</p>
+      <p>This code configures the text generation model (&#34;gemini-pro-vision&#34;) with safety checks. It first sets
+        up the API key and adjusts settings for creative control and output length. It then defines safety thresholds
+        for harmful content. Finally, it creates the model and returns it for use.</p>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Process The Image" duration="5">
-        <p>Now, we process tha image to to return a text response. Create a function <code>process_image</code></p>
-<pre><code language="language-python" class="language-python">def process_image(image_bytes):
+    </google-codelab-step>
+
+    <google-codelab-step label="Process The Image" duration="5">
+      <p>Now, we process tha image to to return a text response. Create a function <code>process_image</code></p>
+      <pre><code language="language-python" class="language-python">def process_image(image_bytes):
     model = configure_google_api()
 
     image_parts = [{
@@ -142,61 +152,68 @@ model = genai.GenerativeModel(model_name=&#34;gemini-pro-vision&#34;,
     return response.text
 
 </code></pre>
-<p>The code takes an image as input and identifies the food item in it. It then uses a text generation model to provide a recipe and traditional cooking methods for that food item. The details of this process involve:</p>
-<ul>
-<li>Setting up a text generation model.</li>
-<li>Preparing the image data for the model.</li>
-<li>Constructing a prompt that describes the desired output.</li>
-<li>Generating text based on the prompt and image.</li>
-<li>Returning the generated text (food identification, recipe, and cooking methods).</li>
-</ul>
-<p>This function effectively combines image analysis and text generation for recipe recommendations based on an image.</p>
+      <p>The code takes an image as input and identifies the food item in it. It then uses a text generation model to
+        provide a recipe and traditional cooking methods for that food item. The details of this process involve:</p>
+      <ul>
+        <li>Setting up a text generation model.</li>
+        <li>Preparing the image data for the model.</li>
+        <li>Constructing a prompt that describes the desired output.</li>
+        <li>Generating text based on the prompt and image.</li>
+        <li>Returning the generated text (food identification, recipe, and cooking methods).</li>
+      </ul>
+      <p>This function effectively combines image analysis and text generation for recipe recommendations based on an
+        image.</p>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Creating UI using Streamlit" duration="5">
-        <ol type="1">
-<li><strong>Creating UI with </strong><strong><code>streamlit</code></strong>: Now that we have the model configured let&#39;s create a simple UI in order to interact with it. Create a <code>main</code> function.</li>
-</ol>
-<pre><code language="language-python" class="language-python">def main():
+    </google-codelab-step>
+
+    <google-codelab-step label="Creating UI using Streamlit" duration="5">
+      <ol type="1">
+        <li><strong>Creating UI with </strong><strong><code>streamlit</code></strong>: Now that we have the model
+          configured let&#39;s create a simple UI in order to interact with it. Create a <code>main</code> function.
+        </li>
+      </ol>
+      <pre><code language="language-python" class="language-python">def main():
     st.set_page_config(page_title=&#34;Recipe Generator&#34;,page_icon=&#39;:star:&#39;)
     st.title(&#39;Recipe Generator Using Gemini&#39;)
     st.write(&#34;This app uses the Gemini Pro Vision model to generate a recipe based on an image of a food item.&#34;)
     uploaded_file = st.file_uploader(&#34;Choose an image...&#34;, type=[&#34;jpg&#34;, &#34;jpeg&#34;, &#34;png&#34;])
 </code></pre>
-<p>This code creates a basic web page with a title, description and input filed.</p>
-<ol type="1" start="2">
-<li><strong>Image to Bytes</strong>: We need to convert the image to bytes in order to pass it to the model.</li>
-</ol>
-<pre><code language="language-python" class="language-python">buf = io.BytesIO()
+      <p>This code creates a basic web page with a title, description and input filed.</p>
+      <ol type="1" start="2">
+        <li><strong>Image to Bytes</strong>: We need to convert the image to bytes in order to pass it to the model.
+        </li>
+      </ol>
+      <pre><code language="language-python" class="language-python">buf = io.BytesIO()
 image.save(buf, format=&#39;JPEG&#39;)
 byte_im = buf.getvalue()
 </code></pre>
-<ol type="1" start="3">
-<li><strong>Get the model response</strong>: Pass the image bytes to the <code>process_image</code> function written earlier.</li>
-</ol>
-<pre><code language="language-python" class="language-python">try:
+      <ol type="1" start="3">
+        <li><strong>Get the model response</strong>: Pass the image bytes to the <code>process_image</code> function
+          written earlier.</li>
+      </ol>
+      <pre><code language="language-python" class="language-python">try:
     result_text = process_image(byte_im)
     st.markdown(textwrap.indent(result_text, &#39;&gt; &#39;, predicate=lambda _: True))
 except Exception as e:
     st.error(f&#34;Error processing image: {e}&#34;)
 </code></pre>
-<ol type="1" start="4">
-<li><strong>Call the </strong><strong><code>main</code></strong><strong> function</strong>: Define entrypoint of the application by calling the <code>main</code> function.</li>
-</ol>
-<pre><code language="language-python" class="language-python">if __name__ == &#34;__main__&#34;:
+      <ol type="1" start="4">
+        <li><strong>Call the </strong><strong><code>main</code></strong><strong> function</strong>: Define entrypoint of
+          the application by calling the <code>main</code> function.</li>
+      </ol>
+      <pre><code language="language-python" class="language-python">if __name__ == &#34;__main__&#34;:
     main()
 </code></pre>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Running the App" duration="5">
-        <ol type="1">
-<li>Your final code file should like this.</li>
-</ol>
-<pre><code language="language-python" class="language-python">import streamlit as st
+    </google-codelab-step>
+
+    <google-codelab-step label="Running the App" duration="5">
+      <ol type="1">
+        <li>Your final code file should like this.</li>
+      </ol>
+      <pre><code language="language-python" class="language-python">import streamlit as st
 from PIL import Image
 import textwrap
 import google.generativeai as genai
@@ -272,44 +289,46 @@ if __name__ == &#34;__main__&#34;:
     main()
 
 </code></pre>
-<ol type="1" start="2">
-<li>Run your application:</li>
-</ol>
-<pre><code>streamlit run app.py
+      <ol type="1" start="2">
+        <li>Run your application:</li>
+      </ol>
+      <pre><code>streamlit run app.py
 </code></pre>
-<ol type="1" start="3">
-<li>Open your web browser and go to http://localhost:8501. You should get your interface.</li>
-</ol>
+      <ol type="1" start="3">
+        <li>Open your web browser and go to <a href="http://localhost:8501" target="_blank">http://localhost:8501</a>.
+          You should get your interface.</li>
+      </ol>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Interacting with Your Application" duration="0">
-        <ol type="1">
-<li>You can try uploading images of any food item.</li>
-<li>Upload a JPG/PNG image.</li>
-<li>The application will respond with the recipe.</li>
-</ol>
+    </google-codelab-step>
+
+    <google-codelab-step label="Interacting with Your Application" duration="0">
+      <ol type="1">
+        <li>You can try uploading images of any food item.</li>
+        <li>Upload a JPG/PNG image.</li>
+        <li>The application will respond with the recipe.</li>
+      </ol>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="Conclusion" duration="1">
-        <p>Congratulations! You&#39;ve just built a software powered by Google&#39;s Gemini AI! This app takes an input of food item image and responds with the recipe. You can try cooking some amazing meals!</p>
+    </google-codelab-step>
+
+    <google-codelab-step label="Conclusion" duration="1">
+      <p>Congratulations! You&#39;ve just built a software powered by Google&#39;s Gemini AI! This app takes an input of
+        food item image and responds with the recipe. You can try cooking some amazing meals!</p>
 
 
-      </google-codelab-step>
-    
-      <google-codelab-step label="What&#39;s Next?" duration="1">
-        <ul>
-<li>Experiment with different model parameters to see how they affect the output.</li>
-<li>Try integrating this API into a larger web application.</li>
-<li>Explore other capabilities of Gemini AI.</li>
-</ul>
+    </google-codelab-step>
+
+    <google-codelab-step label="What&#39;s Next?" duration="1">
+      <ul>
+        <li>Experiment with different model parameters to see how they affect the output.</li>
+        <li>Try integrating this API into a larger web application.</li>
+        <li>Explore other capabilities of Gemini AI.</li>
+      </ul>
 
 
-      </google-codelab-step>
-    
+    </google-codelab-step>
+
   </google-codelab>
 
   <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
@@ -319,4 +338,5 @@ if __name__ == &#34;__main__&#34;:
   <script src="//support.google.com/inapp/api.js"></script>
 
 </body>
+
 </html>
