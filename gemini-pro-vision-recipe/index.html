@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
   <meta name="theme-color" content="#4F7DC9">
   <meta charset="UTF-8">
-  <title>A Python application example developed with Gemini Pro Vision</title>
+  <title>A Python application example developed with Gemini</title>
   <link rel="stylesheet"
     href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
@@ -31,7 +31,7 @@
     <google-codelab-step label="Overview" duration="1">
       <p>Hey there!</p>
       <p>In this codelab, you&#39;ll build a fun and practical Streamlit app that generates recipes based on food
-        images! By leveraging the power of Google&#39;s Gemini Pro Vision model, you&#39;ll be able to:</p>
+        images! By leveraging the power of Google&#39;s Gemini model, you&#39;ll be able to:</p>
       <ul>
         <li>Upload a picture of any food item.</li>
         <li>Automatically identify the type of food in the image.</li>
@@ -49,7 +49,7 @@
         <li>Access to terminal/shell for executing commands.</li>
         <li>Basic understanding of Python</li>
         <li>Familiarity with REST APIs is helpful but not mandatory</li>
-        <li>Access to a Gemini Pro Vision model</li>
+        <li>Access to a Gemini model</li>
       </ol>
 
 
@@ -119,13 +119,13 @@ import os
         {&#34;category&#34;: &#34;HARM_CATEGORY_SEXUALLY_EXPLICIT&#34;, &#34;threshold&#34;: &#34;BLOCK_MEDIUM_AND_ABOVE&#34;},
         {&#34;category&#34;: &#34;HARM_CATEGORY_DANGEROUS_CONTENT&#34;, &#34;threshold&#34;: &#34;BLOCK_MEDIUM_AND_ABOVE&#34;},
     ]
-model = genai.GenerativeModel(model_name=&#34;gemini-pro-vision&#34;,
+model = genai.GenerativeModel(model_name=&#34;gemini-1.5-flash&#34;,
                                   generation_config=generation_config,
                                   safety_settings=safety_settings)
     return model
 
 </code></pre>
-      <p>This code configures the text generation model (&#34;gemini-pro-vision&#34;) with safety checks. It first sets
+      <p>This code configures the text generation model (&#34;gemini-1.5-flash&#34;) with safety checks. It first sets
         up the API key and adjusts settings for creative control and output length. It then defines safety thresholds
         for harmful content. Finally, it creates the model and returns it for use.</p>
 
@@ -176,7 +176,7 @@ model = genai.GenerativeModel(model_name=&#34;gemini-pro-vision&#34;,
       <pre><code language="language-python" class="language-python">def main():
     st.set_page_config(page_title=&#34;Recipe Generator&#34;,page_icon=&#39;:star:&#39;)
     st.title(&#39;Recipe Generator Using Gemini&#39;)
-    st.write(&#34;This app uses the Gemini Pro Vision model to generate a recipe based on an image of a food item.&#34;)
+    st.write(&#34;This app uses the Gemini 1.5 Flash model to generate a recipe based on an image of a food item.&#34;)
     uploaded_file = st.file_uploader(&#34;Choose an image...&#34;, type=[&#34;jpg&#34;, &#34;jpeg&#34;, &#34;png&#34;])
 </code></pre>
       <p>This code creates a basic web page with a title, description and input filed.</p>
@@ -237,7 +237,7 @@ def configure_google_api():
         {&#34;category&#34;: &#34;HARM_CATEGORY_DANGEROUS_CONTENT&#34;, &#34;threshold&#34;: &#34;BLOCK_MEDIUM_AND_ABOVE&#34;},
     ]
 
-    model = genai.GenerativeModel(model_name=&#34;gemini-pro-vision&#34;,
+    model = genai.GenerativeModel(model_name=&#34;gemini-1.5-flash&#34;,
                                   generation_config=generation_config,
                                   safety_settings=safety_settings)
     return model
@@ -264,7 +264,7 @@ def main():
     st.set_page_config(page_title=&#34;Recipe Generator&#34;,page_icon=&#39;:star:&#39;)
     st.image(&#39;gemini.webp&#39;, use_column_width=True)
     st.title(&#39;Recipe Generator Using Gemini&#39;)
-    st.write(&#34;This app uses the Gemini Pro Vision model to generate a recipe based on an image of a food item.&#34;)
+    st.write(&#34;This app uses the Gemini 1.5 Flash Vision model to generate a recipe based on an image of a food item.&#34;)
 
     uploaded_file = st.file_uploader(&#34;Choose an image...&#34;, type=[&#34;jpg&#34;, &#34;jpeg&#34;, &#34;png&#34;])
     if uploaded_file is not None:
